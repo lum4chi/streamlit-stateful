@@ -30,7 +30,7 @@ def stateful_multiselect(
     container = st.container()
 
     if f"{key}_default" not in session:
-        session[f"{key}_default"] = default
+        session[f"{key}_default"] = default if default else []
 
     if st.button(
         "Reset",
