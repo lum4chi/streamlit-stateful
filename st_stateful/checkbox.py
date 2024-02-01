@@ -10,7 +10,7 @@ from st_stateful.base import _on_change_factory
 
 
 def _update_value(session: MutableMapping[Key, Any], key: str):
-    session[f"{key}_value"] = session[key]
+    session[f"{key}.value"] = session[key]
 
 
 def stateful_checkbox(
@@ -25,8 +25,8 @@ def stateful_checkbox(
     """
     A stateful checkbox that preserves value.
     """
-    if f"{key}_value" not in session:
-        session[f"{key}_value"] = value
+    if f"{key}.value" not in session:
+        session[f"{key}.value"] = value
 
     position.checkbox(
         label=label,
@@ -36,4 +36,4 @@ def stateful_checkbox(
         **kwargs,
     )
 
-    return session[key]
+    return session[f"{key}.value"]
