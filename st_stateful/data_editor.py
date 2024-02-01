@@ -13,7 +13,7 @@ from st_stateful.base import _on_change_factory
 
 
 def _update_data(session: MutableMapping[Key, Any], key: str):
-    data = session[f"{key}_data"]
+    data = session[f"{key}.data"]
     if key in session:  # means that `data_editor` has `edited_rows` to be applied
         edited_rows = session[key]
         data_schema = determine_dataframe_schema(data, pa.Table.from_pandas(data))
@@ -36,13 +36,13 @@ def stateful_data_editor(
 
     multiedit: bool - Do not refresh at every change but wait for `Submit` click.
     """
-    if f"{key}_data" not in session:
-        session[f"{key}_data"] = data
+    if f"{key}.data" not in session:
+        session[f"{key}.data"] = data
 
     if multiedit:
-        with position.form(f"{key}_form"):
+        with position.form(f"{key}.form"):
             position.data_editor(
-                data=session[f"{key}_data"],
+                data=session[f"{key}.data"],
                 key=key,
                 # TODO For unknown reasons, use `_on_change_factory` here cause:
                 # `StreamlitAPIException: With forms, callbacks can only be defined on the st.form_submit_button.
@@ -55,15 +55,15 @@ def stateful_data_editor(
             submitted = position.form_submit_button(submit_label)
 
             if submitted:
-                return session[f"{key}_data"]
+                return session[f"{key}.data"]
 
     else:
         position.data_editor(
-            data=session[f"{key}_data"],
+            data=session[f"{key}.data"],
             key=key,
             on_change=_on_change_factory(partial(_update_data, session, key))(
                 on_change
             ),
             **kwargs,
         )
-        return session[f"{key}_data"]
+        return session[f"{key}.data"]

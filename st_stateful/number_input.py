@@ -12,7 +12,7 @@ from st_stateful.base import _on_change_factory
 
 
 def _update_value(session: MutableMapping[Key, Any], key: str):
-    session[f"{key}_value"] = session[key]
+    session[f"{key}.value"] = session[key]
 
 
 def stateful_number_input(
@@ -27,15 +27,15 @@ def stateful_number_input(
     """
     A stateful number input that preserves value.
     """
-    if f"{key}_value" not in session:
-        session[f"{key}_value"] = value
+    if f"{key}.value" not in session:
+        session[f"{key}.value"] = value
 
     position.number_input(
         label,
-        value=session[f"{key}_value"],
+        value=session[f"{key}.value"],
         key=key,
         on_change=_on_change_factory(partial(_update_value, session, key))(on_change),
         **kwargs,
     )
 
-    return session[f"{key}_value"]
+    return session[f"{key}.value"]

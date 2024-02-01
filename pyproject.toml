@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "st-stateful"
-version = "0.1.0"
+version = "0.2.0"
 description = "Wrappers around streamlit widgets to hide state management"
 authors = ["lum4chi <francesco.lumachi@gmail.com>"]
 license = "MIT License"
@@ -9,7 +9,7 @@ packages = [{include = "st_stateful"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-streamlit = "^1.28.0"
+streamlit = "^1.30.0"
 watchdog = "^3.0.0"
 
 

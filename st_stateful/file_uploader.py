@@ -12,7 +12,7 @@ from st_stateful.base import _on_change_factory
 
 def _update_uploaded(session: MutableMapping[Key, Any], key: str):
     if key in session:
-        session[f"{key}_uploaded"] = session[key]
+        session[f"{key}.uploaded"] = session[key]
 
 
 def stateful_file_uploader(
@@ -27,8 +27,8 @@ def stateful_file_uploader(
     A stateful file uploader that preserves uploaded files.
     """
     # NOTE: even if files are preserved, widget does not show uploaded files controls to delete them.
-    if f"{key}_uploaded" not in session:
-        session[f"{key}_uploaded"] = None
+    if f"{key}.uploaded" not in session:
+        session[f"{key}.uploaded"] = None
 
     position.file_uploader(
         label=label,
@@ -39,4 +39,4 @@ def stateful_file_uploader(
         **kwargs,
     )
 
-    return session[f"{key}_uploaded"]
+    return session[f"{key}.uploaded"]
