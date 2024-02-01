@@ -5,3 +5,5 @@ from .number_input import stateful_number_input
 from .selectbox import stateful_selectbox
 from .slider import stateful_slider
 from .checkbox import stateful_checkbox
+from .date_input import stateful_date_input
+from .text_input import stateful_text_input
