@@ -30,7 +30,7 @@ def stateful_checkbox(
 
     position.checkbox(
         label=label,
-        value=value,
+        value=session[f"{key}.value"],
         key=key,
         on_change=_on_change_factory(partial(_update_value, session, key))(on_change),
         **kwargs,
