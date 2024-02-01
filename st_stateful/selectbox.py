@@ -16,7 +16,7 @@ def _update_index(
     # Retrieve the index out of any `options` type
     options = pd.Series(options)
     index = int(options[options == session[key]].index[0])
-    session[f"{key}_index"] = index
+    session[f"{key}.index"] = index
 
 
 def stateful_selectbox(
@@ -32,12 +32,12 @@ def stateful_selectbox(
     """
     A stateful selectbox that preserves index selection.
     """
-    if f"{key}_index" not in session:
-        session[f"{key}_index"] = index
+    if f"{key}.index" not in session:
+        session[f"{key}.index"] = index
 
     # Prevent the following when options are changed:
     # `streamlit.errors.StreamlitAPIException: Selectbox index must be between 0 and length of options`
-    index = session[f"{key}_index"] if 0 < session[f"{key}_index"] < len(options) else 0  # type: ignore
+    index = session[f"{key}.index"] if 0 < session[f"{key}.index"] < len(options) else 0  # type: ignore
 
     position.selectbox(
         label=label,

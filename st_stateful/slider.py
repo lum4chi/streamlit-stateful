@@ -11,7 +11,7 @@ from st_stateful.base import _on_change_factory
 
 
 def _update_value(session: MutableMapping[Key, Any], key: str):
-    session[f"{key}_value"] = session[key]
+    session[f"{key}.value"] = session[key]
 
 
 def stateful_slider(
@@ -28,23 +28,23 @@ def stateful_slider(
     """
     A stateful slider that preserves value selection.
     """
-    if f"{key}_min_value" not in session:
-        session[f"{key}_min_value"] = min_value
+    if f"{key}.min_value" not in session:
+        session[f"{key}.min_value"] = min_value
 
-    if f"{key}_max_value" not in session:
-        session[f"{key}_max_value"] = max_value
+    if f"{key}.max_value" not in session:
+        session[f"{key}.max_value"] = max_value
 
-    if f"{key}_value" not in session:
-        session[f"{key}_value"] = value
+    if f"{key}.value" not in session:
+        session[f"{key}.value"] = value
 
     position.slider(
         label=label,
-        min_value=session[f"{key}_min_value"],
-        max_value=session[f"{key}_max_value"],
-        value=session[f"{key}_value"],
+        min_value=session[f"{key}.min_value"],
+        max_value=session[f"{key}.max_value"],
+        value=session[f"{key}.value"],
         key=key,
         on_change=_on_change_factory(partial(_update_value, session, key))(on_change),
         **kwargs,
     )
 
-    return session[f"{key}_value"]
+    return session[f"{key}.value"]

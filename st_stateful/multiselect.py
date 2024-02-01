@@ -10,7 +10,7 @@ from st_stateful.base import _on_change_factory
 
 
 def _update_default(session: MutableMapping[Key, Any], key: str):
-    session[f"{key}_default"] = session[key]
+    session[f"{key}.default"] = session[key]
 
 
 def stateful_multiselect(
@@ -29,21 +29,21 @@ def stateful_multiselect(
     """
     container = st.container()
 
-    if f"{key}_default" not in session:
-        session[f"{key}_default"] = default if default else []
+    if f"{key}.default" not in session:
+        session[f"{key}.default"] = default if default else []
 
     if st.button(
         "Reset",
-        key=f"{key}_reset",
+        key=f"{key}.reset",
     ):
-        del session[f"{key}_default"]
+        del session[f"{key}.default"]
         st.experimental_rerun()
 
     with container:
         position.multiselect(
             label=f"{label} ({len(session[key]) if key in session else len(default) if default else 0}/{len(options)})",  # type: ignore
             options=options,
-            default=session[f"{key}_default"],
+            default=session[f"{key}.default"],
             key=key,
             on_change=_on_change_factory(partial(_update_default, session, key))(
                 on_change
@@ -51,4 +51,4 @@ def stateful_multiselect(
             **kwargs,
         )
 
-        return session[f"{key}_default"]
+        return session[f"{key}.default"]
