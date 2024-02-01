@@ -9,4 +9,4 @@ Goal of this widget collection is to effortlessy use widgets that need stateful 
 - solving clicking twice to make a setting [_stick_](https://docs.streamlit.io/knowledge-base/using-streamlit/widget-updating-session-state).
 
 ## 🚧 Work in progress! 🚧
-This library is under development, so it's better to rely on commit id as version tracking!
+This library is under development, please be aware that something can change!
