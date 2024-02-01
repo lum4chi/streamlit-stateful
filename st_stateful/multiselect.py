@@ -37,7 +37,7 @@ def stateful_multiselect(
         key=f"{key}.reset",
     ):
         del session[f"{key}.default"]
-        st.experimental_rerun()
+        st.rerun()
 
     with container:
         position.multiselect(
