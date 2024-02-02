@@ -1,3 +1,5 @@
+# TODO debug
+
 from functools import partial
 from typing import Any, MutableMapping, Optional
 
@@ -29,20 +31,24 @@ def stateful_multiselect(
     """
     container = st.container()
 
+    if f"{key}.options" not in session:
+        session[f"{key}.options"] = options if options is not None else []
+
     if f"{key}.default" not in session:
-        session[f"{key}.default"] = default if default else []
+        session[f"{key}.default"] = default if default is not None else []
 
     if st.button(
         "Reset",
         key=f"{key}.reset",
     ):
+        del session[f"{key}.options"]
         del session[f"{key}.default"]
         st.rerun()
 
     with container:
         position.multiselect(
             label=f"{label} ({len(session[key]) if key in session else len(default) if default else 0}/{len(options)})",  # type: ignore
-            options=options,
+            options=session[f"{key}.options"],
             default=session[f"{key}.default"],
             key=key,
             on_change=_on_change_factory(partial(_update_default, session, key))(
