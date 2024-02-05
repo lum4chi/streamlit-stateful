@@ -1,7 +1,6 @@
 from functools import partial
 from typing import Any, MutableMapping, Optional
 
-import pandas as pd
 import streamlit as st
 from streamlit.delta_generator import DeltaGenerator
 from streamlit.runtime.state import WidgetCallback
@@ -13,10 +12,7 @@ from st_stateful.base import _on_change_factory
 def _update_index(
     session: MutableMapping[Key, Any], key: str, options: OptionSequence[T]
 ):
-    # Retrieve the index out of any `options` type
-    options = pd.Series(options)
-    index = int(options[options == session[key]].index[0])
-    session[f"{key}.index"] = index
+    session[f"{key}.index"] = options.index(session[key])
 
 
 def stateful_selectbox(
@@ -37,7 +33,7 @@ def stateful_selectbox(
 
     # Prevent the following when options are changed:
     # `streamlit.errors.StreamlitAPIException: Selectbox index must be between 0 and length of options`
-    index = session[f"{key}.index"] if 0 < session[f"{key}.index"] < len(options) else 0  # type: ignore
+    index = session[f"{key}.index"] if 0 < session[f"{key}.index"] < len(options) else 0
 
     position.selectbox(
         label=label,
