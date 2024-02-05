@@ -15,7 +15,7 @@ def _update_index(
     session[f"{key}.index"] = options.index(session[key])
 
 
-def stateful_selectbox(
+def stateful_radio(
     label: str,
     options: OptionSequence[T],
     key: str,
@@ -26,16 +26,16 @@ def stateful_selectbox(
     **kwargs,
 ):
     """
-    A stateful selectbox that preserves index selection.
+    A stateful radio that preserves index selection.
     """
+    # TODO Very similar to a selectbox, avoid repetition!
+
     if f"{key}.index" not in session:
         session[f"{key}.index"] = index
 
-    # Prevent the following when options are changed:
-    # `streamlit.errors.StreamlitAPIException: Selectbox index must be between 0 and length of options`
     index = session[f"{key}.index"] if 0 < session[f"{key}.index"] < len(options) else 0
 
-    position.selectbox(
+    position.radio(
         label=label,
         options=options,
         index=index,
