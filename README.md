@@ -9,5 +9,21 @@ Goal of this widget collection is to effortlessy use widgets that need stateful 
     - `The widget with key "<your key>" was created with a default value but also had its value set via the Session State API.`
     - `StreamlitAPIException st.session_state.<var> cannot be modified after the widget with key <var> is instantiated.`
 
+## Usage
+This library contains drop-in replacement for standard streamlit widget. So, you can simply swap them like:
+
+```python
+import streamlit as st
+
+agree = stateful_checkbox('I agree', key='checkbox')
+
+if agree:
+    st.write('Great!')
+```
+
+Now you can access you're state looking using `agree`, that is silently linked to `st.session_state['agree.value']`.
+
+You can check each widget in-line documentation to understand it's state management.
+
 ## 🚧 Work in progress! 🚧
 This library is under development, please be aware that something can change!
