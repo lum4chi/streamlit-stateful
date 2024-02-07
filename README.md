@@ -21,7 +21,7 @@ if agree:
     st.write('Great!')
 ```
 
-Now you can access you're state using `agree` variable, that is silently linked to `st.session_state['agree.value']`.
+Now you can access checkbox state using `agree` variable, that is silently linked to `st.session_state['agree.value']`.
 
 You can check each widget in-line documentation to understand it's state management.
 
