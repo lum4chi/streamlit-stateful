@@ -4,7 +4,10 @@ from streamlit.elements.plotly_chart import FigureOrData
 
 
 def stateful_plotly_chart(
-    figure_or_data: FigureOrData, *args, position: DeltaGenerator = st._main, **kwargs
+    figure_or_data: FigureOrData,
+    *args,
+    position: DeltaGenerator = st._main,
+    **kwargs,
 ):
     """
     A stateful plotly chart that preserves zooming.
