@@ -5,6 +5,7 @@ from streamlit.delta_generator import DeltaGenerator
 
 
 def stateful_status(
+    label: str,
     key: str,
     *args,
     expanded: bool = False,
@@ -19,6 +20,7 @@ def stateful_status(
         session[f"{key}.expanded"] = expanded
 
     return position.status(
+        label,
         *args,
         expanded=session[f"{key}.expanded"],
         **kwargs,
