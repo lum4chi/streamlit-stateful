@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "st-stateful"
-version = "0.3.0"
+version = "0.4.0"
 description = "Wrappers around streamlit widgets to hide state management"
 authors = ["lum4chi <francesco.lumachi@gmail.com>"]
 license = "MIT License"
