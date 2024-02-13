@@ -16,7 +16,7 @@ def stateful_status(
     """
     A stateful that preserves expanded status.
     """
-    if f"{key}.value" not in session:
+    if f"{key}.expanded" not in session:
         session[f"{key}.expanded"] = expanded
 
     return position.status(
